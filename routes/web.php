@@ -1,61 +1,63 @@
-
-
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MangaController;
+use App\Http\Controllers\QuadrinhoController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\usuarioControler;
+use App\Http\Controllers\HomeControler;
+use App\Http\Controllers\UsuarioControler;
 use App\Http\Middleware\Authenticate;
+
 /*
 |--------------------------------------------------------------------------
-| Web Routes----------------------------------------------------------------
-|
-| Here is wh
-|----------ere you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+| Web Routes
+|--------------------------------------------------------------------------
+| Aqui você pode registrar as rotas web da aplicação.
 */
-Route::get('/', [MangaController::class, 'exibirManga']);
 
+// Página inicial mostrando mangas
+Route::get('/', [HomeControler::class, 'index']);
+Route::get('/mangas', [MangaController::class, 'exibirManga'])->name('exibirManga.exibir');
+
+// Login e cadastro
 Route::get('/login', function () {
     return view('nivelUsuario.login');
 })->name('login');
-
-Route::get('/perfil', [usuarioControler::class, 'perfil'])
-    ->middleware(Authenticate::class);
-
 
 Route::post('/login', [UsuarioControler::class, 'fazerLogin'])->name('login.enviar');
 
 Route::get('/cadastro', function () {
     return view('nivelUsuario.cadastro');
 });
-Route::post('/cadastro/inserir', [usuarioControler::class, 'store'])->name('cadastro.inserir');
+Route::post('/cadastro/inserir', [UsuarioControler::class, 'store'])->name('cadastro.inserir');
+
+// Logout
 Route::post('/logout', [UsuarioControler::class, 'fazerLogOut'])->name('logout');
 
-// Rotas admin (nivelAcesso = 0)
-Route::middleware([Authenticate::class, 'verificaNivel:0'])->group(function () {
-    Route::get('/formcategoria', function () {
-        return view('nivelAdmin.formcategoria');
-    });  
-    
-Route::get('/formanga', [MangaController::class, 'exibirFormularioManga'])->name('formanga');
 
-    Route::post('/manga/inserir', [MangaController::class, 'store'])->name('manga.inserir');
-    Route::post('/categoria/inserir', [CategoriaController::class, 'store'])->name('categoria.inserir');
+Route::get('/quadrinhos', [QuadrinhoController::class, 'exibirQuadrinho'])->name('quadrinhos.exibir');
+Route::get('/formquadrinho', [QuadrinhoController::class, 'exibirFormularioQuadrinho'])->name('formquadrinho');
+Route::post('/quadrinho/inserir', [QuadrinhoController::class, 'store'])->name('quadrinho.inserir');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [UsuarioControler::class, 'perfil'])->name('usuario.perfil');
+    Route::put('/perfil', [UsuarioControler::class, 'update'])->name('usuario.update'); // sem {id}
 });
 
- Route::middleware([Authenticate::class, 'verificaNivel:1'])->group(function () {
-Route::get('/perfil', [usuarioControler::class, 'perfil'])
-    ->middleware(Authenticate::class);
+// Rotas admin (nível 0)
+Route::middleware([Authenticate::class, 'verificaNivel:0'])->group(function () {
+
+    // Formulários
+    Route::get('/formcategoria', function () {
+        return view('nivelAdmin.formcategoria');
     });
 
+   
+   
+    Route::get('/formanga', [MangaController::class, 'exibirFormularioManga'])->name('formanga');
 
-Route::post('/cadastro/inserir',[usuarioControler::class,'store'])->name('cadastro.inserir');
-
-
-
-
-
+    // Inserções
+    Route::post('/categoria/inserir', [CategoriaController::class, 'store'])->name('categoria.inserir');
+    Route::post('/manga/inserir', [MangaController::class, 'store'])->name('manga.inserir');
+});

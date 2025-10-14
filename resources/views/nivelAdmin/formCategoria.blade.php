@@ -15,11 +15,8 @@
     </header>    
 
     <div class="container">
-       
-
         <form action="{{ route('categoria.inserir') }}" method="POST" enctype="multipart/form-data">
            <p>Inserir Categoria</p>
-          
             @csrf
             <div class="form-group">
                 <label for="nomeManga">Nome da Categoria</label>

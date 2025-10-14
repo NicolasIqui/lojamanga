@@ -3,19 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manga</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{('css/header.css')}}">
-
-    <link rel="stylesheet" href="{{('css/style.css')}}">
+    <title>Quadrinhos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-@php
-        $imagem = 'imginsert/';
-@endphp 
 
-    <header>
-    @include('nivelUsuario.header')        
-    <!-- Seu cabeçalho aqui -->
-        
-    </header>
+@php
+    $imagem = 'imginsert/';
+@endphp
+
+<header>
+    @include('nivelUsuario.header')
+</header>
+
+<br><br>
+<center>
+    <h1>Quadrinhos em destaque</h1>
+</center>
+
+<div class="mestre">
+    @foreach ($quadrinhos as $quadrinho)
+    <div class="card-titulo">
+        <div class="card-body">
+          <img src="{{ asset('imginsert/' . $quadrinho->caminhoImagemQuadrinho) }}" 
+     alt="Imagem de {{ $quadrinho->nomeQuadrinho }}" 
+     width="90%" height="150px">
+            <p class="card-sinopse">{{ $quadrinho->sinopseQuadrinho }}</p>
+
+            @foreach ($quadrinho->categorias as $categoria)
+                <p class="card-categorias">Categoria: {{ $categoria->nomeCategoria }}</p>
+            @endforeach
+
+            <p class="card-text">Autor: {{ $quadrinho->autorQuadrinho }}</p>
+            <p class="card-text">R$ {{ $quadrinho->valorQuadrinho }}</p>
+            <p class="card-text">{{ $quadrinho->dataDeLancamentoQuadrinho }}</p>
+        </div>
+
+        <div class="card-img">
+            <label class="card-title">{{ $quadrinho->nomeQuadrinho }}</label>
+        </div>
+    </div>
+    @endforeach
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Sua Empresa. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>

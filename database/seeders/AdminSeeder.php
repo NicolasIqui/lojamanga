@@ -20,7 +20,8 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@loja.com',
             'password' => Hash::make('admin123'), // senha segura
+            'imagem'=>'',
             'nivelAcesso' => 0
         ]);
     }
-}a
+}

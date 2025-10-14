@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_categoria_manga');
+    Schema::dropIfExists('tbcategoriamanga'); // nome correto da tabela
     }
 };

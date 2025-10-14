@@ -10,9 +10,9 @@
   
     <header class="container">
         
-        <a  href="formcategoria">manga</a>
+        <a  href="{{ route('exibirManga.exibir') }}">manga</a>
         <a  href="https://www.youtube.com/watch?v=yZrL5QMxeOY&list=PLqdxJj_z7crBiLUDHE7AMxgU9a7Gib21Y">Categoria</a>
-        <a  href="quadrinho.blade.php">quadrinho </a>
+        <a href="{{ route('quadrinhos.exibir') }}">Quadrinhos</a>
    
         <div class="links" style="margin-left: auto";>
         <a class="link" href="login">login</a> 

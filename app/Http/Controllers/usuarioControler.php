@@ -47,6 +47,7 @@ class usuarioControler extends Controller
             $usuario->name=$request->input('username');
             $usuario->email=$request->input('email');
             $usuario->password = Hash::make($request->input('password')); 
+            $usuario->imagem="";
             $usuario->nivelAcesso=1;
             $usuario->save();
         return redirect('/login')->with('success', 'Categoria inserido com sucesso!');
@@ -104,10 +105,29 @@ public function fazerLogin(Request $request)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+public function update(Request $request)
+{
+    /** @var \App\Models\User $usuario */
+
+    $usuario = Auth::user(); // garante que seja um User
+    $usuario->name = $request->input('name');
+    $usuario->email = $request->input('email');
+
+    if ($request->filled('password')) {
+        $usuario->password = Hash::make($request->input('password'));
     }
+
+    if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+        $nomeArquivo = $request->file('imagem')->getClientOriginalName();
+        $caminhoDestino = public_path('imgUsuarios');
+        $request->file('imagem')->move($caminhoDestino, $nomeArquivo);
+        $usuario->imagem = $nomeArquivo;
+    }
+
+    $usuario->save(); // agora não deve mais dar erro
+
+    return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
+}
 
     /**
      * Remove the specified resource from storage.

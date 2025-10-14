@@ -35,9 +35,18 @@ class MangaController extends Controller
                // $mangas = MangaModel::take(4)->get(); // ou ->limit(4)->get()
 
         $mangas = MangaModel::all(); // ou outra consulta
-        return view('nivelUsuario.welcome', compact('mangas'));
+        return view('nivelUsuario.manga', compact('mangas'));
+    }
+     public function exibirMangaw() {
+        // Pega apenas 2 mangas
+        $mangas = MangaModel::take(2)->get(); 
+        return view('nivelUsuario.manga', compact('mangas'));
     }
 
+
+
+
+    
 public function exibirFormularioManga()
 {
     $categorias = CategoriaModel::all(); // pega todas as categorias da tabela tbcategoria
@@ -82,7 +91,7 @@ public function exibirFormularioManga()
 
     $manga->categorias()->attach($categoriaId);
 
-    return redirect('/')->with('success', 'Mangá inserido com sucesso!');
+    return redirect('/mangas')->with('success', 'Mangá inserido com sucesso!');
 }
     /**
      * Display the specified resource.

@@ -27,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('tbcategoriaquadrinho'); // nome correto da tabela
+        Schema::dropIfExists('tbcategoriamanga'); // nome correto da tabela
         Schema::dropIfExists('tbcategoria');
     }
 };
