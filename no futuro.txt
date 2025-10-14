@@ -1,0 +1,21 @@
+SELECT 
+    nomeManga,
+    caminhoImagemManga,
+    sinopseManga,
+    autorManga,
+    valorManga,
+    dataDeLancamentoManga,
+    STRING_AGG(categorias.nomeCategoria, ', ') AS categorias
+FROM 
+    mangas
+INNER JOIN 
+    tbcategoriamanga ON mangas.idManga = tbcategoriamanga.idManga
+INNER JOIN 
+    categorias ON tbcategoriamanga.idCategoria = categorias.idCategoria
+GROUP BY 
+    nomeManga,
+    caminhoImagemManga,
+    sinopseManga,
+    autorManga,
+    valorManga,
+    dataDeLancamentoManga;

@@ -1,0 +1,124 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+
+}
+
+body{
+background-color:#161b27 /*#033244*/;
+}
+form{   
+   display: flex;
+  flex-direction: column; 
+    border-radius: 20px;
+    background-color: #1a1a2e; 
+    width: 300px;
+    padding-top: 30px;
+     text-align: center;
+   
+}
+
+
+
+fieldset{
+   text-align: center;
+     display: flex;
+     flex-direction: column; 
+     padding: 10px;
+     padding-top: 30px ;
+     margin-bottom: 30px;
+     align-items: center;
+    border: solid 2px #1E91D9;
+}
+
+fieldset legend{
+    color: white;
+    border-radius:5px ;
+    background-color: #1E91D9;
+    padding: 10px;
+    text-align: center;
+    
+}
+form, input, button{
+     align-items:center;
+     margin-bottom: 50px;  
+}
+
+form input{
+    background: none;
+     border: none;
+    border-bottom: 1px solid white;
+     padding: 5px;
+     cursor: pointer;
+     width: 250px;
+    
+    }
+
+form input:focus{
+    transition: 0.2s;
+    outline: none;
+   border-color: #1E91D9;
+     
+}
+
+::placeholder{
+    color: white;
+}
+
+form button{
+     align-items:center;
+     border-radius: 20px;
+     padding: 10px;
+     border-radius: 10px;
+     width: 150px;
+     border: none;
+     background-image: linear-gradient(to right, #0D51D9, #1E91D9 );
+     color: white;
+}
+
+form button:hover{
+     transition: 0.5s;
+     
+      transform:scale(1.1);
+    
+}
+
+form a{ /* muda o link do login */ 
+    color:white;
+    border-radius: 20px;
+    font-size: 18px;
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+
+form a:hover{ /* muda o link do login */ 
+    transition: 0.50s;
+    color: yellow;
+      transform:scale(1.1);
+    
+    
+}
+
+p{
+    font-size: 30px;
+    margin-bottom: 80px;
+    color: #1E91D9 ;
+    margin-top: 50px;
+    border-bottom: solid 2px #1E91D9;
+    width: 780px;
+    padding-bottom: 3px;
+}
+
+.p2{
+ font-size: 30px;
+    margin-bottom: 50px;
+    color: #1E91D9 ;
+    margin-top: 50px;
+    border-bottom: solid 2px #1E91D9;
+    width: 400px;
+    padding-bottom: 3px;
+}

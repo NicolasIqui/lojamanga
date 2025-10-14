@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif; /* Escolhi uma fonte simples para o corpo */
+    height: 100vh; /* Altura completa da janela */
+    background-color: #161b27; /* Cor de fundo da página */
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+   
+    
+}
+
+h1{
+    color: white;
+    border-bottom: solid 2px #fff;
+    width: 400px;
+    padding-bottom: 4px;
+}
+
+.mestre {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os cards */
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 80px; /* Adiciona uma margem superior para não sobrepor o cabeçalho */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 0; /* Ajusta o espaçamento dentro da área dos cards */
+}
+.card-categorias {
+    margin-bottom: 5px; /* Reduzido de 10px para 5px */
+    color: white; /* Definir a cor do texto da categoria como o padrão */
+    font-size: 1rem; 
+}
+
+.card-titulo {
+    background-color: #0f172a;
+    border-radius: 8px;
+    width: 18%; /* Largura ajustada para caber 5 cards em linha */
+    text-align: center;
+    
+}
+
+.card-titulo:hover {
+    transition: 0.65s;
+    transform: scale(1.05);
+    border: none;
+  
+}
+
+.card-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-family: 'Lobster', cursive;
+    font-size: 1.4rem;
+   color: white;
+    font-weight: bold;
+    background-color: #161b27;
+    width: 100%;
+    border: none;
+}
+
+.card-title:hover{
+transition: 0.5s;
+color: yellow;
+}
+
+.card-text {
+    color: white; 
+    font-size: 1rem; /* Diminuí a fonte para 0.9rem */
+}
+
+.card-sinopse {
+  color: white;
+    font-size: 0.9rem;
+    line-height: 1.2em; /* Espaçamento entre as linhas */
+    overflow: hidden; /* Oculta o conteúdo extra */
+    display: -webkit-box; /* Contêiner flexível */
+    -webkit-box-orient: vertical; /* Organiza o conteúdo verticalmente */
+    -webkit-line-clamp: 4; /* Limite de 4 linhas */
+    text-overflow: ellipsis; /* Exibe reticências quando o texto for cortado */
+    white-space: normal; /* Permite quebra de linha */
+    height: 4.8em; /* Altura ajustada para caber exatamente 4 linhas (4 x 1.2em) */
+    margin-top: 10px; 
+}
+
+.card-author, .card-date {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* Estilos para o footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 10px;
+    flex-shrink: 0; /* Impede que o footer encolha */
+    margin-top: auto; /* Empurra o footer para baixo */
+}

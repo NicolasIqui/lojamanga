@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+  height: 60px; /* altura fixa da navbar */
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+
+}
+header {
+    width: 100%;
+    background-color: #0f172a; 
+    align-items: center;
+    position: relative;
+    height: 60px;
+      
+}
+
+header a{
+    margin-right: 40px;
+     transition: 0.4s;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    
+
+}
+
+header a:hover {
+   transform: scale(1.2,1.2);
+    color: #1E91D9;
+}
+
+    .links{
+        display: flex;
+        align-items: center;
+         transition: 0.4s;
+    }
+
+    .links a:hover{
+       
+        transform: scale(1.2,1.2);
+    }
+
+
+.botao-logout {
+    text-decoration: none;
+    background: none;        /* sem fundo */
+    border: none;            /* sem borda */
+    color: white;            /* cor do texto igual aos links */
+    font: inherit;           /* herda fonte do menu */
+    font-size: 1.2rem;       /* tamanho igual aos links */
+    padding: 8px 15px;       /* mesmo padding que os links */
+    border-radius: 20px;     /* mesmo arredondamento */
+    cursor: pointer;         /* mãozinha */
+    display: inline-block;   /* alinha como link */
+    transition: 0.75s;       /* mesma transição dos links */
+}
+
+.botao-logout:hover {
+    
+    color:#1E91D9;               
+}
+
