@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 class usuarioControler extends Controller
 {
     /**
@@ -97,8 +99,36 @@ public function fazerLogin(Request $request)
     {
         //
     }
+            public function contarUsuarios()
+        {
+            $total = User::count();
+            return $total;
+        }
 
-    /**
+ public function dashboard()
+{
+    $usuariosPorMes = User::select(
+        DB::raw('MONTH(created_at) as mes'),
+        DB::raw('COUNT(*) as total')
+    )
+    ->groupBy('mes')
+    ->orderBy('mes')
+    ->get();
+
+    $meses = [
+        1 => 'Janeiro', 2 => 'Fevereiro', 3 => 'Março', 4 => 'Abril',
+        5 => 'Maio', 6 => 'Junho', 7 => 'Julho', 8 => 'Agosto',
+        9 => 'Setembro', 10 => 'Outubro', 11 => 'Novembro', 12 => 'Dezembro'
+    ];
+
+    foreach ($usuariosPorMes as $u) {
+        $u->mes_nome = $meses[$u->mes];
+    }
+
+    return view('nivelAdmin.dashboard', compact('usuariosPorMes'));
+}
+
+            /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

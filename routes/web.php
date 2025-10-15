@@ -31,6 +31,8 @@ Route::get('/cadastro', function () {
 });
 Route::post('/cadastro/inserir', [UsuarioControler::class, 'store'])->name('cadastro.inserir');
 
+
+
 // Logout
 Route::post('/logout', [UsuarioControler::class, 'fazerLogOut'])->name('logout');
 
@@ -47,6 +49,8 @@ Route::middleware('auth')->group(function () {
 
 // Rotas admin (nível 0)
 Route::middleware([Authenticate::class, 'verificaNivel:0'])->group(function () {
+Route::get('/dashboard', [UsuarioControler::class, 'dashboard'])->name('dashboard');
+
 
     // Formulários
     Route::get('/formcategoria', function () {
