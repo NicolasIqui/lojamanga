@@ -105,28 +105,30 @@ public function fazerLogin(Request $request)
             return $total;
         }
 
- public function dashboard()
+public function dashboard()
 {
-    $usuariosPorMes = User::select(
-        DB::raw('MONTH(created_at) as mes'),
-        DB::raw('COUNT(*) as total')
-    )
-    ->groupBy('mes')
-    ->orderBy('mes')
-    ->get();
+    $usuariosPorMes = DB::table('users')
+        ->select(DB::raw('MONTH(created_at) as mes'), DB::raw('COUNT(*) as total'))
+        ->groupBy('mes')
+        ->get()
+        ->map(function ($item) {
+            $meses = [
+                1=>'Janeiro',2=>'Fevereiro',3=>'Março',4=>'Abril',5=>'Maio',6=>'Junho',
+                7=>'Julho',8=>'Agosto',9=>'Setembro',10=>'Outubro',11=>'Novembro',12=>'Dezembro'
+            ];
+            return (object)[
+                'mes_nome' => $meses[$item->mes],
+                'total' => $item->total
+            ];
+        });
 
-    $meses = [
-        1 => 'Janeiro', 2 => 'Fevereiro', 3 => 'Março', 4 => 'Abril',
-        5 => 'Maio', 6 => 'Junho', 7 => 'Julho', 8 => 'Agosto',
-        9 => 'Setembro', 10 => 'Outubro', 11 => 'Novembro', 12 => 'Dezembro'
-    ];
+    $totalMangas = \App\Models\MangaModel::count();
+    $totalQuadrinhos = \App\Models\QuadrinhoModel::count();
 
-    foreach ($usuariosPorMes as $u) {
-        $u->mes_nome = $meses[$u->mes];
-    }
-
-    return view('nivelAdmin.dashboard', compact('usuariosPorMes'));
+    return view('nivelAdmin.dashboard', compact('usuariosPorMes', 'totalMangas', 'totalQuadrinhos'));
 }
+
+
 
             /**
      * Update the specified resource in storage.

@@ -1,4 +1,4 @@
-body {
+ body {
       font-family: Arial, sans-serif;
       background-color: #f5f5f5;
       margin: 20px;
@@ -9,13 +9,29 @@ body {
       color: #333;
     }
 
-    #graficoUsuarios {
-      max-width: 650px;
-      height: 400px;
-      margin: 20px auto;
-      padding: 10px;
+    .graficos-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    #graficoUsuarios, #graficoTipo {
       background-color: #fff;
       border: 1px solid #ccc;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 10px;
+    }
+
+    #graficoUsuarios {
+      width: 600px;
+      height: 400px;
+    }
+
+    #graficoTipo {
+      width: 400px;
+      height: 400px;
     }
