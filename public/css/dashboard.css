@@ -1,12 +1,12 @@
  body {
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #161b27;
       margin: 20px;
     }
 
     h2 {
       text-align: center;
-      color: #333;
+      color: #0D51D9;
     }
 
     .graficos-container {
@@ -19,8 +19,8 @@
     }
 
     #graficoUsuarios, #graficoTipo {
-      background-color: #fff;
-      border: 1px solid #ccc;
+      background-color: #0f172a;
+      border: none;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       padding: 10px;
@@ -35,3 +35,6 @@
       width: 400px;
       height: 400px;
     }
+    canvas {
+  background-color: transparent !important;
+}

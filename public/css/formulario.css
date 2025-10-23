@@ -8,13 +8,12 @@ body{
     margin: 14px;
   margin-top: 20px;
     border-radius: 20px;
-  
    display: flex;
    flex-direction: column;
    width: 600px ;
   background-color: #1a1a2e;
   color: #1E91D9 ;
- 
+ margin-top: 0px;
 }
 
 .form-group{
@@ -62,7 +61,7 @@ body{
     font-size: larger;
     margin-top: 20px;
    padding: 15px;
- background-image: linear-gradient(to right, #0D51D9, #1E91D9 );;
+ background-image: linear-gradient(to right, #0D51D9, #1E91D9 );
     margin-bottom: 20px;
     border-radius: 20px;
     color: white;

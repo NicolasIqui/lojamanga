@@ -18,7 +18,14 @@
     <form action="{{ route('usuario.update') }}" method="POST" enctype="multipart/form-data" class="perfil-form">
         @csrf
         @method('PUT')
-
+  <div class="form-group">
+           
+            @if($user->imagem)
+                <div class="imagem-atual">
+                    <img src="{{ asset('imgusuarios/' . $user->imagem) }}" alt="Imagem atual" width="100" height="100">
+                </div>
+                 <label>Imagem de perfil:</label>
+            <input type="file" name="imagem" accept="image/*" />
         <div class="form-group">
             <label>Nome:</label>
             <input type="text" name="name" value="{{ $user->name }}" required />
@@ -35,13 +42,7 @@
             <small>Deixe em branco se não quiser alterar</small>
         </div>
 
-        <div class="form-group">
-            <label>Imagem de perfil:</label>
-            <input type="file" name="imagem" accept="image/*" />
-            @if($user->imagem)
-                <div class="imagem-atual">
-                    <img src="{{ asset('imgusuarios/' . $user->imagem) }}" alt="Imagem atual" width="100" height="100">
-                </div>
+      
             @endif
         </div>
 
