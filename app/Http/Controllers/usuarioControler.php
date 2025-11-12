@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+
 
 class usuarioControler extends Controller
 {
@@ -160,6 +162,54 @@ public function update(Request $request)
 
     return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
 }
+
+
+
+ public function download()
+    {               
+        $sql = 'select * from users';
+
+        $queryJson = DB::select($sql);
+
+        // Nome do arquivo CSV
+        $filename = 'usuarios.csv';
+
+        // Cabeçalho do arquivo
+        
+        $headers = [
+            'Content-Type' => 'text/csv;charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];        
+
+        //Cabeçalho        
+        
+        $file = fopen('php://output', 'w');
+
+        fclose($file);
+
+        // Gera o arquivo CSV
+        $callback = function () use ($queryJson) {
+            
+        $file = fopen('php://output', 'w');
+
+        //Cabeçalho
+        $col1 = "id";
+        $col2 = "name";
+        $col3 = "email";
+        fwrite($file, "$col1;$col2;$col3;");
+
+        foreach ($queryJson as $d) {
+            $data1 = $d->id;
+            $data2 = mb_convert_encoding($d->name, "ISO-8859-1", "UTF-8");
+            $data3 = $d->email;
+            fwrite($file, "\n$data1;$data2;$data3;");
+        }    
+            fclose($file);
+        };
+               return Response::stream($callback, 200, $headers);
+}
+
+
 
     /**
      * Remove the specified resource from storage.

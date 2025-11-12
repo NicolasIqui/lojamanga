@@ -10,25 +10,33 @@
 <body>
   <h2>Dashboard</h2>
 
-  <div class="graficos-container">
-    <div id="graficoUsuarios" data-usuarios='@json($usuariosPorMes)'></div>
-
-    <div id="graficoTipo"
-         data-quadrinhos="{{ $totalQuadrinhos }}"
-         data-mangas="{{ $totalMangas }}">
-    </div>
+  <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
+  
+  <div id="graficoUsuarios" 
+       data-usuarios='@json($usuariosPorMes)' 
+       style="flex: 1 1 600px; min-width: 550px; max-width: 650px;">
   </div>
 
-  <script>
-    google.charts.load('current', { packages: ['corechart', 'bar'] });
-    google.charts.setOnLoadCallback(drawCharts);
 
-    function drawCharts() {
-      drawBarChart();
-      drawPieChart();
-    }
+  <div id="graficoQuadrinhosMangas" 
+       data-quadrinhos="{{ $totalQuadrinhos }}" 
+       data-mangas="{{ $totalMangas }}" 
+       style="flex: 1 1 400px; min-width: 350px; max-width: 450px;">
+  </div>
 
-    function drawBarChart() {
+</div>
+
+<script>
+  google.charts.load('current', { packages: ['corechart', 'bar'] });
+  google.charts.setOnLoadCallback(drawCharts);
+
+  function drawCharts() {
+      drawUsuariosChart();
+      drawQuadrinhosMangasChart();
+  }
+
+  // ======== GRÁFICO DE USUÁRIOS ========
+  function drawUsuariosChart() {
       const container = document.getElementById('graficoUsuarios');
       const usuariosPorMes = JSON.parse(container.dataset.usuarios);
 
@@ -36,45 +44,54 @@
       data.addColumn('string', 'Mês');
       data.addColumn('number', 'Usuários Cadastrados');
 
-      usuariosPorMes.forEach(u => data.addRow([u.mes_nome, u.total]));
+      usuariosPorMes.forEach(u => {
+          data.addRow([u.mes_nome, u.total]);
+      });
 
       const options = {
-        title: 'Usuários cadastrados por mês',
-        width: 600,
-        height: 400,
-        legend: { position: 'none' },
-        bars: 'vertical',
-        vAxis: { format: '0' },
-        colors: ['#4CAF50']
+          title: 'Usuários cadastrados por mês',
+          width: 600,
+          height: 400,
+          legend: { position: 'none' },
+          bars: 'vertical',
+          vAxis: { format: '0' },
+          colors: ['#4CAF50']
       };
 
       const chart = new google.charts.Bar(container);
       chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
+  }
 
-    function drawPieChart() {
-      const container = document.getElementById('graficoTipo');
-      const totalQuadrinhos = parseInt(container.dataset.quadrinhos);
-      const totalMangas = parseInt(container.dataset.mangas);
+  // ======== GRÁFICO DE PIZZA ========
+  function drawQuadrinhosMangasChart() {
+      const div = document.getElementById('graficoQuadrinhosMangas');
+      const totalQuadrinhos = parseInt(div.dataset.quadrinhos);
+      const totalMangas = parseInt(div.dataset.mangas);
 
       const data = google.visualization.arrayToDataTable([
-        ['Tipo', 'Quantidade'],
-        ['Quadrinhos', totalQuadrinhos],
-        ['Mangás', totalMangas]
+          ['Tipo', 'Quantidade'],
+          ['Quadrinhos', totalQuadrinhos],
+          ['Mangás', totalMangas]
       ]);
 
       const options = {
-        title: 'Distribuição de Itens',
-        width: 400,
-        height: 400,
-        colors: ['#2196F3', '#FF9800'],
-        pieHole: 0.3
+          title: 'Proporção entre Quadrinhos e Mangás',
+          width: 400,
+          height: 400,
+          pieHole: 0.4,
+          colors: ['#FFA500', '#2196F3'], // 🟧 Laranja e 🟦 Azul
+          legend: { position: 'bottom', textStyle: { fontSize: 14 } },
+          pieSliceTextStyle: { color: 'white' },
       };
 
-      const chart = new google.visualization.PieChart(container);
+      const chart = new google.visualization.PieChart(div);
       chart.draw(data, options);
-    }
-  </script>
+  }
+</script>
+
+<a href="/download-csv">Download</a>
+<a href="/downloadquadrinho-csv">Download quadrinho</a>
+<a href="/downloadmanga-csv">Download manga</a>
 
 </body>
 </html>

@@ -6,6 +6,7 @@ use App\Http\Controllers\QuadrinhoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HomeControler;
 use App\Http\Controllers\UsuarioControler;
+use App\Http\Controllers\usuarioControler as ControllersUsuarioControler;
 use App\Http\Middleware\Authenticate;
 
 /*
@@ -41,6 +42,9 @@ Route::get('/quadrinhos', [QuadrinhoController::class, 'exibirQuadrinho'])->name
 Route::get('/formquadrinho', [QuadrinhoController::class, 'exibirFormularioQuadrinho'])->name('formquadrinho');
 Route::post('/quadrinho/inserir', [QuadrinhoController::class, 'store'])->name('quadrinho.inserir');
 
+Route::get('/download-csv',[UsuarioControler::class,'download'])->name('download.csv');
+Route::get('/downloadquadrinho-csv',[QuadrinhoController::class,'download'])->name('downloadquadrinho.csv');
+Route::get('/downloadmanga-csv',[MangaController::class,'download'])->name('downloadmanga.csv');
 
 Route::middleware('auth')->group(function () {
     Route::get('/perfil', [UsuarioControler::class, 'perfil'])->name('usuario.perfil');

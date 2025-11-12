@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\CategoriaModel;
 use App\Models\QuadrinhoModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\CategoriaMangaModel;
+use Illuminate\Support\Facades\Response;
 
 class QuadrinhoController extends Controller
 {
@@ -50,4 +53,58 @@ class QuadrinhoController extends Controller
 
         return redirect('/quadrinhos')->with('success', 'Quadrinho inserido com sucesso!');
     }
+
+
+ public function download()
+    {               
+        $sql = 'select * from tbquadrinho';
+
+        $queryJson = DB::select($sql);
+
+        // Nome do arquivo CSV
+        $filename = 'quadrinho.csv';
+
+        // Cabeçalho do arquivo
+        
+        $headers = [
+            'Content-Type' => 'text/csv;charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];        
+
+        //Cabeçalho        
+        
+        $file = fopen('php://output', 'w');
+
+        fclose($file);
+
+        // Gera o arquivo CSV
+        $callback = function () use ($queryJson) {
+            
+        $file = fopen('php://output', 'w');
+
+        //Cabeçalho
+        $col1 = "id";
+        $col2 = "nomeQuadrinho";
+        $col3 = "sinopseQuadrinho";
+        $col4 = "autorQuadrinho";
+        $col5 = "valorQuadrinho";
+        $col6 = "dataDeLancamentoQuadrinho";
+
+        fwrite($file, "$col1;$col2;$col3;$col4;$col5;$col6;");
+
+        foreach ($queryJson as $d) {
+            $data1 = $d->id;
+            $data2 = mb_convert_encoding($d->nomeQuadrinho, "ISO-8859-1", "UTF-8");
+            $data3 = $d->sinopseQuadrinho;
+            $data4 = $d->autorQuadrinho;
+            $data5 = $d->valorQuadrinho;
+            $data6 = " " . date('d/m/Y', strtotime($d->dataDeLancamentoQuadrinho));
+            fwrite($file, "\n$data1;$data2;$data3;$data4;$data5;$data6;");
+        }    
+            fclose($file);
+        };
+               return Response::stream($callback, 200, $headers);
+}
+
+
 }

@@ -5,6 +5,7 @@ use App\Models\MangaModel;
 use App\Models\CategoriaModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\CategoriaMangaModel;
+use Illuminate\Support\Facades\Response;
 
 use Illuminate\Http\Request;
 
@@ -93,6 +94,10 @@ public function exibirFormularioManga()
 
     return redirect('/mangas')->with('success', 'Mangá inserido com sucesso!');
 }
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -137,4 +142,59 @@ public function exibirFormularioManga()
     {
         //
     }
+
+
+    
+ public function download()
+    {               
+        $sql = 'select * from tbmanga';
+
+        $queryJson = DB::select($sql);
+
+        // Nome do arquivo CSV
+        $filename = 'manga.csv';
+
+        // Cabeçalho do arquivo
+        
+        $headers = [
+            'Content-Type' => 'text/csv;charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];        
+
+        //Cabeçalho        
+        
+        $file = fopen('php://output', 'w');
+
+        fclose($file);
+
+        // Gera o arquivo CSV
+        $callback = function () use ($queryJson) {
+            
+        $file = fopen('php://output', 'w');
+
+        //Cabeçalho
+        $col1 = "id";
+        $col2 = "nomeManga";
+        $col3 = "sinopseManga";
+        $col4 = "autorManga";
+        $col5 = "valorManga";
+        $col6 = "dataDeLancamentoManga";
+
+        fwrite($file, "$col1;$col2;$col3;$col4;$col5;$col6;");
+
+        foreach ($queryJson as $d) {
+            $data1 = $d->id;
+            $data2 = mb_convert_encoding($d->nomeManga, "ISO-8859-1", "UTF-8");
+            $data3 = $d->sinopseManga;
+            $data4 = $d->autorManga;
+            $data5 = $d->valorManga;
+            $data6 = " " . date('d/m/Y', strtotime($d->dataDeLancamentoManga));
+            fwrite($file, "\n$data1;$data2;$data3;$data4;$data5;$data6;");
+        }    
+            fclose($file);
+        };
+               return Response::stream($callback, 200, $headers);
+}
+
+
 }
