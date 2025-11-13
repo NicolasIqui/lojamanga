@@ -5,8 +5,41 @@
     }
 
     h2 {
+      font-size: 50px;
       text-align: center;
       color: #0D51D9;
+      margin-bottom: 150px;
+      border-bottom: solid 2px #0D51D9;
+      width:270px ;
+    }
+
+    .content {
+            display: flex;
+      flex-direction: row;
+    }
+
+    .sidebar {
+      position: sticky;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      gap: 1rem;
+      padding-left: 3rem;
+      padding-right: 2rem;
+      align-items: start;
+      margin-right: 150px;
+      background-color: #0f172a;
+      width: 290px;
+      height: 750px;
+      margin-top:100px;
+      border-radius: 20px;
+      margin-left:40px;
+    }
+
+    .sidebar p{
+    margin-left:50px ;
+    color: white;
+    font-size: 28px;
     }
 
     .graficos-container {
@@ -38,3 +71,39 @@
     canvas {
   background-color: transparent !important;
 }
+
+
+a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 25px;
+  margin-top: 35px;
+  position: relative;
+  transition: color 0.75s; /* para a cor */
+  font-size: 24px;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: #0D51D9;
+  transition: width 0.75s; /* faz a borda crescer suavemente */
+}
+
+a:hover {
+  
+  color: #0D51D9;
+}
+
+a:hover::after {
+  width: 100%; /* a borda cresce até a largura total do link */
+}
+
+
+
+
+  

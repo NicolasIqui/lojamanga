@@ -9,7 +9,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class usuarioControler extends Controller
 {
@@ -22,6 +22,20 @@ class usuarioControler extends Controller
     {
         //
     }
+public function downloadPdf()
+    {
+
+        $usuarios = User::all();
+
+        $dados = compact('usuarios');
+        
+        $pdf = PDF::loadView('nivelAdmin.pdf', $dados);
+        
+        return $pdf->download('documento.pdf'); // Faz o download do PDF
+        
+        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+    }
+
 
     /**
      * Show the form for creating a new resource.

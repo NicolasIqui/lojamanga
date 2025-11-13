@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CategoriaMangaModel;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class QuadrinhoController extends Controller
 {
@@ -105,6 +106,24 @@ class QuadrinhoController extends Controller
         };
                return Response::stream($callback, 200, $headers);
 }
+
+
+
+
+    public function downloadPdf()
+    {
+
+        $quadrinhos = QuadrinhoModel::all();
+
+        $dados = compact('quadrinhos');
+        
+        $pdf = PDF::loadView('nivelAdmin.pdfquadrinho', $dados);
+        
+        return $pdf->download('documentoquadrinho.pdf'); // Faz o download do PDF
+        
+        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+    }
+
 
 
 }

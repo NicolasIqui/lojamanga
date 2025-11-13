@@ -46,6 +46,14 @@ Route::get('/download-csv',[UsuarioControler::class,'download'])->name('download
 Route::get('/downloadquadrinho-csv',[QuadrinhoController::class,'download'])->name('downloadquadrinho.csv');
 Route::get('/downloadmanga-csv',[MangaController::class,'download'])->name('downloadmanga.csv');
 
+
+Route::get('/download-pdf', [UsuarioControler::class, 'downloadPdf']);
+
+Route::get('/download-pdfmanga', [MangaController::class, 'downloadPdf']);
+Route::get('/download-pdfquadrinho', [QuadrinhoController::class, 'downloadPdf']);
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/perfil', [UsuarioControler::class, 'perfil'])->name('usuario.perfil');
     Route::put('/perfil', [UsuarioControler::class, 'update'])->name('usuario.update'); // sem {id}

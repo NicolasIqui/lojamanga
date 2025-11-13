@@ -6,6 +6,7 @@ use App\Models\CategoriaModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\CategoriaMangaModel;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Http\Request;
 
@@ -31,6 +32,9 @@ class MangaController extends Controller
     }
     */
 
+
+
+    
     
     public function exibirManga() {
                // $mangas = MangaModel::take(4)->get(); // ou ->limit(4)->get()
@@ -46,6 +50,20 @@ class MangaController extends Controller
 
 
 
+
+    public function downloadPdf()
+    {
+
+        $mangas = MangaModel::all();
+
+        $dados = compact('mangas');
+        
+        $pdf = PDF::loadView('nivelAdmin.pdfmanga', $dados);
+        
+        return $pdf->download('documentomanga.pdf'); // Faz o download do PDF
+        
+        // return $pdf->stream('documento.pdf'); // Exibe o PDF no navegador
+    }
 
     
 public function exibirFormularioManga()
